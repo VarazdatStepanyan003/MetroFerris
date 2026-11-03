@@ -40,6 +40,10 @@ fn beta(t: f32, bi: f32, bf: f32) -> f32 {
     (bf - bi) * t + bi
 }
 
+fn sigmoid(x: f32) -> f32 {
+    1.0 / (1.0 + (-x).exp())
+}
+
 struct Moments {
     avg: f32,
     doms: u8,
@@ -199,7 +203,7 @@ fn integrate(
     let mut be = beta(t_0 / t_max, bi, bf);
     let mut de = rj * be - rh * (bc - be);
 
-    let mut r = helpers::sigmoid(de);
+    let mut r = sigmoid(de);
 
     let dt = u / r / 10.0;
 
@@ -216,7 +220,7 @@ fn integrate(
         be = beta((t_0 + t + dt) / t_max, bi, bf);
         de = rj * be - rh * (bc - be);
 
-        let rr = helpers::sigmoid(de);
+        let rr = sigmoid(de);
 
         v += dt * (rr + r) / 2.0;
         t += dt;

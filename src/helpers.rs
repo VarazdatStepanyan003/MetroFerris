@@ -14,13 +14,16 @@
 // If not, see <https://www.gnu.org/licenses/>.
 //
 
-pub fn binary_search(x: f32, arr: &[f32]) -> Option<usize> {
+// returns the smallest index for which arr[i] < x <= arr[i+1]
+pub fn time_search<T: PartialOrd>(x: T, arr: &[T]) -> Option<usize> {
+    if arr.len() < 2 || x < arr[0] {
+        return None;
+    }
+
     if x == arr[0] {
         return Some(0);
     }
-    if x < arr[0] {
-        return None;
-    }
+
     let mut b: usize = arr.len() - 1;
     if x > arr[b] {
         return None;
@@ -42,6 +45,32 @@ pub fn binary_search(x: f32, arr: &[f32]) -> Option<usize> {
     panic!("This should never happen: binary_search")
 }
 
-pub fn sigmoid(x: f32) -> f32 {
-    1.0 / (1.0 + (-x).exp())
+// returns the largest index for which arr[i] <= x < arr[i+1]
+pub fn rate_search<T: PartialOrd>(x: T, arr: &[T]) -> Option<usize> {
+    if arr.len() < 2 || x < arr[0] {
+        return None;
+    }
+
+    if x == arr[0] {
+        return Some(0);
+    }
+    let mut b: usize = arr.len() - 1;
+    if x > arr[b] {
+        return None;
+    }
+    let mut a: usize = 0;
+    while a < b {
+        let mut m = (a + b) / 2;
+        if arr[m + 1] < x {
+            a = m + 1;
+        } else if arr[m] >= x {
+            b = m;
+        } else {
+            while m < arr.len() - 1 && arr[m + 1] == x {
+                m += 1;
+            }
+            return Some(m);
+        }
+    }
+    panic!("This should never happen: binary_search")
 }

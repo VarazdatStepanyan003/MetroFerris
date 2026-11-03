@@ -83,7 +83,7 @@ impl Res {
     }
 
     fn add(&mut self, r: Observables) {
-        if let Some(i) = helpers::binary_search(r.t, &self.time) {
+        if let Some(i) = helpers::time_search(r.t, &self.time) {
             self.moms[i] += r.moms;
             self.am[i] += 1;
         }
@@ -191,7 +191,7 @@ struct Ising {
 }
 
 impl Ising {
-    fn energy_diff(&self, j: usize) -> f32 {
+    fn energy_diff_rate(&self, j: usize) -> f32 {
         let (l, c, r): (bool, bool, bool);
         if j == 0 {
             (l, c, r) = (
@@ -221,7 +221,7 @@ impl Ising {
         if !c {
             res = -res;
         }
-        res
+        1.0 / (1.0 + (-res).exp())
     }
 }
 
@@ -247,7 +247,7 @@ impl IsModel for Ising {
 
     fn step(&mut self) {
         let j = self.rng.random_range(0..128);
-        let r = helpers::sigmoid(-self.energy_diff(j));
+        let r = -self.energy_diff_rate(j);
         let u: f32 = -(1.0 - self.rng.random::<f32>()).ln();
         let dt = u / 128.0;
         self.t += dt;

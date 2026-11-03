@@ -6,7 +6,7 @@ default-members = [".", "derive"]
 
 edition = "2024"
 
-version = "0.1.3"
+version = "0.1.4"
 keywords = ["scientific", "simulation"]
 categories = ["science"]
 publish = false

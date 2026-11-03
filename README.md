@@ -4,7 +4,7 @@
 MetroFerris is named after the metropolis algorithm and the rust Ferris mascot
 
 ## Usage
-The files in the examples/ folder showcase how to use this library. Each file has a bit of a different approach to together paint an overall complete picture for the user.
+The files in the examples/ folder showcase how to use this library. Each file has a bit of a different approach to together paint an overall complete picture for the user. The examples have not been thoroughly tested and are not in any way production level code. These exist to just showcase the use of the library rather then for legitimate research.
 
 The English Wiki page is a pretty good place to learn most of the important intro stuff for kinetic monte carlo.
 

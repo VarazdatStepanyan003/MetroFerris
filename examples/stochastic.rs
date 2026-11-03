@@ -101,7 +101,7 @@ impl Res {
     }
 
     fn add(&mut self, r: Observables) {
-        if let Some(i) = helpers::binary_search(r.t, &self.time) {
+        if let Some(i) = helpers::time_search(r.t, &self.time) {
             self.props[i] += r.prop;
             self.am[i] += 1;
         }
